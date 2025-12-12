@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        LOG_DIR = '/tmp/advision-logs'
+            LOG_DIR = 'advision-logs'
         TIMESTAMP = "${new Date().format('yyyyMMdd-HHmmss')}"
     }
 
@@ -14,7 +14,7 @@ pipeline {
                   echo "Python is not installed!"
                   exit 1
                 fi
-                mkdir -p $LOG_DIR
+                    mkdir $LOG_DIR 2>nul || true
                 '''
             }
         }
@@ -37,7 +37,7 @@ pipeline {
                 }
         stage('Publish') {
             steps {
-                archiveArtifacts artifacts: '/tmp/advision-logs/*', fingerprint: true
+                 archiveArtifacts artifacts: 'advision-logs/*', fingerprint: true
             }
         }
     }
